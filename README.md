@@ -21,6 +21,26 @@ For more information run a command without arguments, e.g.:
 snn build
 ```
 
+Run a command without arguments for more information:
+
+```console
+$ snn runall
+Usage: snn runall [options] [--] app.cc [...]
+
+Options:
+-o --optimize            Optimize (-O2)
+-t --time-execution      Time command execution (implies verbose)
+-s --sanitize            Enable sanitizers (Address & UndefinedBehavior)
+-c --compiler compiler   Compiler (default: clang++)
+-d --define MACRO[,...]  Define macro(s)
+-v --verbose             Increase verbosity (up to three times)
+
+Verbosity levels:
+1. Show compile/run commands
+2. Show all commands
+3. Debug
+```
+
 For example, to run all unit tests in the [snn-core/pair/](https://github.com/snncpp/snn-core/tree/master/pair) subdirectory:
 
 ```console
