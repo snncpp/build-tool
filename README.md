@@ -1,6 +1,6 @@
 # Build tool
 
-The [snncpp][snncpp] framework build tool can build C++ projects that follow the same naming convention and
+The [snncpp][snncpp] Go-like build tool can build C++ projects that follow the same naming convention and
 directory structure as [snn-core][snncore]. It understands simple preprocessing directives ([example](https://github.com/snncpp/snn-core/blob/master/crypto/hash/sha256.hh))
 and will link with libraries listed in `#include` comments ([example](https://github.com/snncpp/snn-core/blob/master/crypto/hash/impl/sha256.openssl.hh)).
 
@@ -56,7 +56,7 @@ clang++ --config ./.clang -o pair/core.test pair/core.test.o -L/usr/local/lib/
 
 ## Officially supported platforms
 
-The [snncpp][snncpp] framework currently targets [POSIX][posix] and is developed and tested on:
+The [snn-core][snncore] library currently targets [POSIX][posix] and is developed and tested on:
 
 | Operating system     | Compiler             |
 | -------------------- | -------------------- |
