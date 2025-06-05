@@ -214,6 +214,15 @@ namespace snn::app
             mk << "LINK = -L/usr/local/lib/\n";
 
 #if defined(__FreeBSD__)
+            if (compiler_.has_front("clang"))
+            {
+                // "Enable colors in diagnostics" with `make -j max_jobs`.
+                mk << "\n";
+                mk << ".ifdef .MAKE.JOBS\n";
+                mk << "CFLAGS += -fcolor-diagnostics\n";
+                mk << ".endif\n";
+            }
+
             if (makefile_depend)
             {
                 mk << "\n.MAKE.DEPENDFILE=" << makefile_depend << '\n';
