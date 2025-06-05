@@ -19,6 +19,8 @@
 #include "snn-core/file/path/split.hh"
 #include "snn-core/file/standard/error.hh"
 #include "snn-core/file/standard/out.hh"
+#include "snn-core/fmt/error_code.hh"
+#include "snn-core/fmt/print.hh"
 #include "snn-core/fn/common.hh"
 #include "snn-core/map/sorted.hh"
 #include "snn-core/map/unsorted.hh"
@@ -859,7 +861,7 @@ namespace snn::app
 
         [[nodiscard]] bool parse_recursive_(const str& file, const u32 depth)
         {
-            constexpr u32 max_depth = 128; // Arbitrary (around 10 is normal for `snn-core`).
+            constexpr u32 max_depth = 128;      // Arbitrary (around 10 is normal for `snn-core`).
             if (depth > max_depth) [[unlikely]] // Clang bug if unreachable code warning.
             {
                 fmt::print_error_line("Error: Maximum recursion depth ({}) exceeded", max_depth);
