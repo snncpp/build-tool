@@ -143,7 +143,7 @@ namespace snn::app
                 }
             }
 
-            strbuf mk{container::reserve, 1024};
+            strbuf mk{init::reserve, 1024};
 
             if (applications_.is_empty() || compiler_.is_empty())
             {
@@ -176,8 +176,8 @@ namespace snn::app
                 mk << " -O2";
             }
 
-            vec<str> cflags{container::reserve, 10};
-            vec<str> phony_targets{container::reserve, 6};
+            vec<str> cflags{init::reserve, 10};
+            vec<str> phony_targets{init::reserve, 6};
 
             if (fuzz_)
             {
@@ -270,7 +270,7 @@ namespace snn::app
 
             phony_targets.append("all");
             mk << "\nall:";
-            strbuf all{container::reserve, 8 * applications_.count()};
+            strbuf all{init::reserve, 8 * applications_.count()};
             for (const auto index : range::step<usize>{0, applications_.count()})
             {
                 all << " $(APP" << as_num(index) << ')';
@@ -357,9 +357,9 @@ namespace snn::app
                 // Target: run
 
                 const usize size_guess = 256 * applications_.count();
-                strbuf minimize{container::reserve, size_guess};
-                strbuf compress{container::reserve, size_guess};
-                strbuf run{container::reserve, size_guess};
+                strbuf minimize{init::reserve, size_guess};
+                strbuf compress{init::reserve, size_guess};
+                strbuf run{init::reserve, size_guess};
 
                 str cd_dir_and;
 
@@ -663,7 +663,7 @@ namespace snn::app
 
         [[nodiscard]] strbuf dependency_list_() const
         {
-            strbuf dependency_list{container::reserve, 4096};
+            strbuf dependency_list{init::reserve, 4096};
 
             for (const auto& file : dependencies_.range() | range::v::element<0>{})
             {
@@ -685,7 +685,7 @@ namespace snn::app
                 }
             }
 
-            strbuf wrapped{container::reserve, dependency_list.size()};
+            strbuf wrapped{init::reserve, dependency_list.size()};
             for (const auto [part, delim] : string::range::wrap{dependency_list, 90, " \\\n  "})
             {
                 wrapped << part << delim;
@@ -1013,7 +1013,7 @@ namespace snn::app
 
         void print_compiler_include_paths_() const
         {
-            strbuf out{container::reserve, constant::size::kibibyte<usize>};
+            strbuf out{init::reserve, constant::size::kibibyte<usize>};
             out.append("Include paths (from compiler):\n");
             for (const auto& path : compiler_include_paths_)
             {
@@ -1025,7 +1025,7 @@ namespace snn::app
 
         void print_predefined_macros_() const
         {
-            strbuf out{container::reserve, 16 * constant::size::kibibyte<usize>};
+            strbuf out{init::reserve, 16 * constant::size::kibibyte<usize>};
             out.append("Predefined macros (from compiler and command line):\n");
             for (const auto& p : predefined_macros_)
             {
@@ -1158,7 +1158,7 @@ namespace snn::app
                 fmt::print_error_line("make -f {} {}", makefile, target);
             }
 
-            vec<str> spawn_args{container::reserve, 4};
+            vec<str> spawn_args{init::reserve, 4};
 
             if (verbose_level == 0 || (verbose_level == 1 && target.has_front("clean")))
             {
@@ -1287,7 +1287,7 @@ namespace snn::app
             }
             else
             {
-                strbuf usage{container::reserve, 600};
+                strbuf usage{init::reserve, 600};
 
                 usage << "Usage: " << program_name << " build [options] [--] app.cc [...]\n";
 
@@ -1423,7 +1423,7 @@ namespace snn::app
             }
             else
             {
-                strbuf usage{container::reserve, 600};
+                strbuf usage{init::reserve, 600};
 
                 usage << "Usage: " << program_name << " gen [options] [--] app.cc [...]\n";
 
@@ -1539,7 +1539,7 @@ namespace snn::app
 
                         if (exit_status == constant::exit::success)
                         {
-                            vec<str> spawn_args{container::reserve, args.count()};
+                            vec<str> spawn_args{init::reserve, args.count()};
 
                             for (const auto& arg : args)
                             {
@@ -1575,7 +1575,7 @@ namespace snn::app
             }
             else
             {
-                strbuf usage{container::reserve, 600};
+                strbuf usage{init::reserve, 600};
 
                 usage << "Usage: " << program_name << " run [options] [--] app.cc [arguments]\n";
 
@@ -1698,7 +1698,7 @@ namespace snn::app
             }
             else
             {
-                strbuf usage{container::reserve, 600};
+                strbuf usage{init::reserve, 600};
 
                 usage << "Usage: " << program_name << " runall [options] [--] app.cc [...]\n";
 
@@ -1761,7 +1761,7 @@ namespace snn
             }
         }
 
-        strbuf usage{container::reserve, 300};
+        strbuf usage{init::reserve, 300};
 
         usage << "Usage: " << program_name << " <command> [arguments]\n";
 
