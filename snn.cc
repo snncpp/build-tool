@@ -242,7 +242,7 @@ namespace snn::app
 
                 mk << "SRC" << idx << " = ";
                 const auto sources = source_dependencies_(app);
-                algo::join(sources.range(), "\\\n\t   ", mk, promise::no_overlap);
+                algo::join(sources.range(), "\\\n\t   ", mk, assume::no_overlap);
                 mk << '\n';
 
                 mk << "OBJ" << idx << " = $(SRC" << idx << ":.cc=.o)\n";
@@ -554,7 +554,7 @@ namespace snn::app
 
             process::command cmd;
 
-            cmd.append_command(compiler_, promise::is_valid);
+            cmd.append_command(compiler_, assume::is_valid);
 
             if (compiler_.has_front("clang"))
             {
@@ -564,7 +564,7 @@ namespace snn::app
             {
                 cmd << " @";
             }
-            cmd.append_command(config_file_, promise::is_valid);
+            cmd.append_command(config_file_, assume::is_valid);
 
             if (optimize_)
             {
@@ -592,7 +592,7 @@ namespace snn::app
             {
                 while (const auto line = output.read_line<cstrview>())
                 {
-                    auto rng = line.value(promise::has_value).range();
+                    auto rng = line.value(assume::has_value).range();
 
                     rng.pop_front_while(chr::is_ascii_control_or_space);
                     rng.pop_back_while(chr::is_ascii_control_or_space);
@@ -1017,7 +1017,7 @@ namespace snn::app
             out.append("Include paths (from compiler):\n");
             for (const auto& path : compiler_include_paths_)
             {
-                fmt::format_append(" {}\n", out, promise::no_overlap, path);
+                fmt::format_append(" {}\n", out, assume::no_overlap, path);
             }
             out.append("End of include paths.\n");
             file::standard::out{} << out;
@@ -1029,7 +1029,7 @@ namespace snn::app
             out.append("Predefined macros (from compiler and command line):\n");
             for (const auto& p : predefined_macros_)
             {
-                fmt::format_append(" #define {} {}\n", out, promise::no_overlap, p.first, p.second);
+                fmt::format_append(" #define {} {}\n", out, assume::no_overlap, p.first, p.second);
             }
             out.append("End of predefined macros.\n");
             file::standard::out{} << out;
@@ -1204,7 +1204,7 @@ namespace snn::app
                                   {"time-execution", 't'},
                                   {"verbose", 'v'},
                               },
-                              promise::is_sorted};
+                              assume::is_sorted};
 
             if (!opts)
             {
@@ -1329,7 +1329,7 @@ namespace snn::app
                                   {"time-execution", 't'},
                                   {"verbose", 'v'},
                               },
-                              promise::is_sorted};
+                              assume::is_sorted};
 
             if (!opts)
             {
@@ -1465,7 +1465,7 @@ namespace snn::app
                                   {"time-execution", 't'},
                                   {"verbose", 'v'},
                               },
-                              promise::is_sorted};
+                              assume::is_sorted};
 
             if (!opts)
             {
@@ -1615,7 +1615,7 @@ namespace snn::app
                                   {"time-execution", 't'},
                                   {"verbose", 'v'},
                               },
-                              promise::is_sorted};
+                              assume::is_sorted};
 
             if (!opts)
             {

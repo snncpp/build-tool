@@ -97,8 +97,8 @@ namespace snn::app
                 {
                     if (stack_)
                     {
-                        const auto p = stack_.back(promise::not_empty);
-                        stack_.drop_back(promise::not_empty);
+                        const auto p = stack_.back(assume::not_empty);
+                        stack_.drop_back(assume::not_empty);
 
                         state_                = p.first;
                         if_statement_handled_ = p.second;
