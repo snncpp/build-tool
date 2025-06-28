@@ -38,8 +38,8 @@ namespace snn::app
             rng.drop_front('.'); // Allow hidden files.
             if (rng.has_front_if(chr::is_alpha) && rng.has_back_if(chr::is_alphanumeric))
             {
-                rng.pop_front_while(
-                    fn::is_any_of{chr::is_alphanumeric, fn::in_array{'.', '_', '-'}});
+                rng.pop_front_while(fn::is_any_of{chr::is_alphanumeric,
+                                                  fn::in_array{'.', '_', '-'}});
                 return rng.is_empty();
             }
             return false;
@@ -89,8 +89,8 @@ namespace snn::app
                 auto rng = s.get().range();
                 if (rng.has_front_if(chr::is_alpha) && rng.has_back_if(chr::is_alphanumeric))
                 {
-                    rng.pop_front_while(
-                        fn::is_any_of{chr::is_alphanumeric, fn::in_array{'_', '-', '.'}});
+                    rng.pop_front_while(fn::is_any_of{chr::is_alphanumeric,
+                                                      fn::in_array{'_', '-', '.'}});
                     return rng.is_empty();
                 }
             }
@@ -102,8 +102,8 @@ namespace snn::app
             auto rng = s.get().range();
             if (rng.has_front_if(chr::is_alpha) || rng.has_front('_'))
             {
-                rng.pop_front_while(
-                    fn::is_any_of{chr::is_alphanumeric, fn::is{fn::equal_to{}, '_'}});
+                rng.pop_front_while(fn::is_any_of{chr::is_alphanumeric,
+                                                  fn::is{fn::equal_to{}, '_'}});
                 return rng.is_empty();
             }
             return false;
